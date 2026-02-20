@@ -5,15 +5,15 @@ import { connectDB } from "./src/config/database";
 
 const PORT = process.env.PORT || 3000;
 
-// connectDB().then(() => {
-//   app.listen(PORT, () => {
-//     console.log(`Server running on port ${PORT}`);
-//   });
-// });
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  // console.log("MongoDB URI:", process.env.MONGODB_URI);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+//   // console.log("MongoDB URI:", process.env.MONGODB_URI);
+// });
 
 
