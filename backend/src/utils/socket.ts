@@ -6,9 +6,7 @@ import { Chat } from "../models/Chat";
 import { User } from "../models/User";
 
 
-interface SocketWithUserId extends Socket {
-    userID: String;
-}
+
 
 // store online users in memory: userId -> socketId
 export const onlineUsers: Map<string, string> = new Map();
