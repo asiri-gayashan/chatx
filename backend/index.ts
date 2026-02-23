@@ -1,19 +1,21 @@
-import "dotenv/config";
 import app from "./src/app";
 import { connectDB } from "./src/config/database";
-
+import { createServer } from "http";
+import { initializeSocket } from "./src/utils/socket";
 
 const PORT = process.env.PORT || 3000;
 
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const httpServer = createServer(app);
+
+initializeSocket(httpServer);
+
+connectDB()
+  .then(() => {
+    httpServer.listen(PORT, () => {
+      console.log("Server is running on PORT:", PORT);
+    });
+  })
+  .catch((error) => {
+    console.error("Failed to start server:", error);
+    process.exit(1);
   });
-});
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-//   // console.log("MongoDB URI:", process.env.MONGODB_URI);
-// });
-
-
