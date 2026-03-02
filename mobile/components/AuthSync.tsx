@@ -8,6 +8,9 @@ const AuthSync = () => {
   const { mutate: syncUser } = useAuthCallback();
   const hasSynced = useRef(false); // this is used to not run useEffect more than once
 
+
+  // console.log("AuthSync rendered.");
+
   useEffect(() => {
     if (isSignedIn && user && !hasSynced.current) {
       hasSynced.current = true;

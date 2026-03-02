@@ -4,6 +4,7 @@ import { useMutation} from "@tanstack/react-query";
 
 export const useAuthCallback = () => {
   const api = useApi();
+      // console.log("Auth callback response");
 
 
   return useMutation({

@@ -27,7 +27,10 @@ export async function getMe(req: AuthRequest, res: Response, next: NextFunction)
 
 export async function authCallback(req: Request, res: Response, next: NextFunction) {
   try {
+    console.log("✅ authCallback hit");
     const { userId: clerkId } = getAuth(req);
+    console.log("🔑 clerkId:", clerkId);
+    // console.log("HEADERS:", req.headers.authorization);
 
     if (!clerkId) {
       res.status(401).json({ message: "Unauthorized" });
