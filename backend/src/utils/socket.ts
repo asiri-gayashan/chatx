@@ -110,27 +110,27 @@ export const initializeSocket = (httpServer: HttpServer) => {
     });
 
     socket.on("typing", async (data: { chatId: string; isTyping: boolean }) => {
-    //   const typingPayload = {
-    //     userId,
-    //     chatId: data.chatId,
-    //     isTyping: data.isTyping,
-    //   };
+      const typingPayload = {
+        userId,
+        chatId: data.chatId,
+        isTyping: data.isTyping,
+      };
 
-    //   // emit to chat room (for users inside the chat)
-    //   socket.to(`chat:${data.chatId}`).emit("typing", typingPayload);
+      // emit to chat room (for users inside the chat)
+      socket.to(`chat:${data.chatId}`).emit("typing", typingPayload);
 
-    //   // also emit to other participant's personal room (for chat list view)
-    //   try {
-    //     const chat = await Chat.findById(data.chatId);
-    //     if (chat) {
-    //       const otherParticipantId = chat.participants.find((p: any) => p.toString() !== userId);
-    //       if (otherParticipantId) {
-    //         socket.to(`user:${otherParticipantId}`).emit("typing", typingPayload);
-    //       }
-    //     }
-    //   } catch (error) {
-    //     // silently fail - typing indicator is not critical
-    //   }
+      // also emit to other participant's personal room (for chat list view)
+      try {
+        const chat = await Chat.findById(data.chatId);
+        if (chat) {
+          const otherParticipantId = chat.participants.find((p: any) => p.toString() !== userId);
+          if (otherParticipantId) {
+            socket.to(`user:${otherParticipantId}`).emit("typing", typingPayload);
+          }
+        }
+      } catch (error) {
+        // silently fail - typing indicator is not critical
+      }
     });
 
     socket.on("disconnect", () => {
