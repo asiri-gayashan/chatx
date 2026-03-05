@@ -1,8 +1,21 @@
 import axios from "axios";
 import { useAuth } from "@clerk/clerk-expo";
 import { useCallback } from "react";
+import { Platform } from "react-native";
 
-const API_URL = "http://10.0.2.2:3000/api"; // your local backend
+// const API_URL = "http://10.0.2.2:3000/api"; // your local backend
+
+
+const LOCAL_IP = "192.168.1.11";
+
+
+export const API_URL =
+  Platform.OS === "android"
+    ? "http://10.0.2.2:3000/api"
+    : `http://${LOCAL_IP}:3000/api`;
+
+
+
 
 const api = axios.create({
   baseURL: API_URL,

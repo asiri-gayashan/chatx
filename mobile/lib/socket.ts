@@ -2,8 +2,20 @@ import { create } from "zustand";
 import { io, Socket } from "socket.io-client";
 import { QueryClient } from "@tanstack/react-query";
 import { Chat, Message, MessageSender } from "@/types";
+import { Platform } from "react-native";
 
-const SOCKET_URL = "http://10.0.2.2:3000/";
+// const SOCKET_URL = "http://10.0.2.2:3000/";
+
+
+const LOCAL_IP = "192.168.1.11";
+
+export const SOCKET_URL =
+  Platform.OS === "android"
+    ? "http://10.0.2.2:3000/"
+    : `http://${LOCAL_IP}:3000/`;
+
+
+
 
 interface SocketState {
   socket: Socket | null;
